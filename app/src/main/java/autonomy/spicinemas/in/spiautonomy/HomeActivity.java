@@ -51,7 +51,13 @@ public class HomeActivity extends AppCompatActivity {
         viewSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(HomeActivity.this, ViewScheduleActivity.class));
+            }
+        });
+        TextView trainingVideos = findViewById(R.id.trainingvideos);
+        trainingVideos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
             }
         });
     }
