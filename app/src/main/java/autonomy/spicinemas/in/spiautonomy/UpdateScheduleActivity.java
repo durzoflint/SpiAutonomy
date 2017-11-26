@@ -14,6 +14,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_schedule);
+        setTitle("Select Date");
         final DatePicker datePicker = findViewById(R.id.datePicker);
         Button next = findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
@@ -23,7 +24,10 @@ public class UpdateScheduleActivity extends AppCompatActivity {
                 int month = datePicker.getMonth()+1;
                 int day = datePicker.getDayOfMonth();
                 Intent intent = new Intent(UpdateScheduleActivity.this, AddEmployeesToDateActivity.class);
-                intent.putExtra("date",""+year+month+day);
+                if(day>10)
+                    intent.putExtra("date",""+year+month+day);
+                else
+                    intent.putExtra("date",""+year+month+"0"+day);
                 startActivity(intent);
             }
         });

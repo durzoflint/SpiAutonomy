@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                     loginPrefsEditor.clear();
                     loginPrefsEditor.apply();
                 }
-
                 new Login().execute(id, pass);
             }
         });
@@ -93,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             progressDialog.dismiss();
-            if(webPage.contains("login successful<br>"))
+            if(webPage.contains("login success<br>"))
             {
                 Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                 int brI = webPage.indexOf("<br>");
