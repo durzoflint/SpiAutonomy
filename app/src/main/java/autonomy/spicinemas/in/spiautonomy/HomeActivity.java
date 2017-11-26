@@ -2,6 +2,7 @@ package autonomy.spicinemas.in.spiautonomy;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -61,6 +62,7 @@ public class HomeActivity extends AppCompatActivity {
         trainingVideos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/playlist?list=PLjp0AEEJ0-fEuKWBJV30ebHCGoi1Ny69U")));
             }
         });
     }
