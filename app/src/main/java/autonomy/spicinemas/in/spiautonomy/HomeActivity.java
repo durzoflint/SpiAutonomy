@@ -1,9 +1,14 @@
 package autonomy.spicinemas.in.spiautonomy;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,9 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HomeActivity extends AppCompatActivity {
-
     String name, empID, admin;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,5 +63,35 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menuhome, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.logout)
+            logout();
+        return super.onOptionsItemSelected(item);
+    }
+    public void onBackPressed() {
+        logout();
+    }
+    void logout(){
+        new AlertDialog.Builder(this)
+                .setTitle("Really Logout?")
+                .setMessage("Are you sure you want to Logout?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent i = getBaseContext().getPackageManager()
+                                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    }
+                }).create().show();
     }
 }
