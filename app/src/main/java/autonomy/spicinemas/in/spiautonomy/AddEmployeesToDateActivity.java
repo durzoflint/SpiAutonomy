@@ -36,6 +36,7 @@ public class AddEmployeesToDateActivity extends AppCompatActivity {
         Intent i = getIntent();
         date = i.getStringExtra("date");
         empShift = findViewById(R.id.empshift);
+        spinnerArray.add("OFF");
         spinnerArray.add("9AM");        spinnerArray.add("10AM");
         spinnerArray.add("11AM");        spinnerArray.add("12PM");
         spinnerArray.add("1PM");        spinnerArray.add("2PM");
