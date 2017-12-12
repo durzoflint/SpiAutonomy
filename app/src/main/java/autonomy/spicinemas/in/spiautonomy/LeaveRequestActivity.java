@@ -28,7 +28,7 @@ public class LeaveRequestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_request);
-        setTitle("Leave Requests");
+        setTitle("Apply Leave Requests");
         new FetchPending().execute();
     }
     private class FetchPending extends AsyncTask<Void,Void,Void> {

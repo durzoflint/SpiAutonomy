@@ -25,7 +25,8 @@
         <activity android:name=".ViewScheduleActivity" />
         <activity android:name=".AddEmployeesToDateActivity" />
         <activity android:name=".SubmitRequestActivity" />
-        <activity android:name=".LeaveRequestActivity"></activity>
+        <activity android:name=".LeaveRequestActivity" />
+        <activity android:name=".ViewLeaveRequestsActivity"></activity>
     </application>
 
 </manifest>

@@ -60,6 +60,16 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(i);
                 }
             });
+            TextView viewLeaveRequest = findViewById(R.id.viewleaverequests);
+            viewLeaveRequest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(HomeActivity.this, ViewLeaveRequestsActivity.class);
+                    i.putExtra("name", name);
+                    i.putExtra("empID", empID);
+                    startActivity(i);
+                }
+            });
         }
         TextView viewSchedule = findViewById(R.id.viewschedule);
         viewSchedule.setOnClickListener(new View.OnClickListener() {
