@@ -43,15 +43,18 @@ public class HomeActivity extends AppCompatActivity {
         else
         {
             setContentView(R.layout.activity_home);
-            /*TextView viewSchedule = (TextView)findViewById(R.id.viewschedule);
-            viewSchedule.setOnClickListener(new View.OnClickListener() {
+            TextView leaveRequest = findViewById(R.id.leaverequest);
+            leaveRequest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent i = new Intent(HomeActivity.this, SubmitRequestActivity.class);
+                    i.putExtra("name", name);
+                    i.putExtra("empID", empID);
+                    startActivity(i);
                 }
-            });*/
+            });
         }
-        TextView viewSchedule = (TextView)findViewById(R.id.viewschedule);
+        TextView viewSchedule = findViewById(R.id.viewschedule);
         viewSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

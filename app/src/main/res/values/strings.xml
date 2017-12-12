@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SPI Autonomy</string>
+    <string-array name="request">
+        <item>Change of Shift</item>
+        <item>Leave Request</item>
+        <item>Other</item>
+    </string-array>
 </resources>

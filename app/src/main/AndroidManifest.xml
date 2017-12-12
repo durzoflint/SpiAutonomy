@@ -23,7 +23,8 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".UpdateScheduleActivity" />
         <activity android:name=".ViewScheduleActivity" />
-        <activity android:name=".AddEmployeesToDateActivity"></activity>
+        <activity android:name=".AddEmployeesToDateActivity" />
+        <activity android:name=".SubmitRequestActivity"></activity>
     </application>
 
 </manifest>
