@@ -101,7 +101,10 @@ public class SubmitRequestActivity extends AppCompatActivity {
                 TextView reasonText = findViewById(R.id.reason);
                 String reason = reasonText.getText().toString();
                 if(sdate.length() == 8 && edate.length() == 8)
+                {
                     new SubmitRequest().execute(name, empID, sdate, edate, reason);
+                    onBackPressed();
+                }
                 else
                     Toast.makeText(SubmitRequestActivity.this, "Select Dates", Toast.LENGTH_SHORT).show();
             }

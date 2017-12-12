@@ -8,8 +8,10 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +35,7 @@ public class LeaveRequestActivity extends AppCompatActivity {
         String webPage="";
         String baseUrl = "http://srmvdpauditorium.in/spi/";
         ProgressDialog progressDialog;
+        LinearLayout finalData = null;
         Context context = LeaveRequestActivity.this;
         @Override
         protected void onPreExecute(){
@@ -88,10 +91,17 @@ public class LeaveRequestActivity extends AppCompatActivity {
                     webPage = webPage.substring(webPage.indexOf("<br>")+4);
                     String endDate = webPage.substring(0, webPage.indexOf("<br>"));
                     webPage = webPage.substring(webPage.indexOf("<br>")+4);
+                    final String refID = webPage.substring(0, webPage.indexOf("<br>"));
+                    webPage = webPage.substring(webPage.indexOf("<br>")+4);
                     LinearLayout.LayoutParams matchParams = new LinearLayout.LayoutParams
                             (LinearLayout.LayoutParams.MATCH_PARENT,
                                     LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
-                    CardView cardView = new CardView(context);
+                    final LinearLayout data = findViewById(R.id.data);
+                    final LinearLayout outer = new LinearLayout(context);
+                    outer.setLayoutParams(matchParams);
+                    outer.setOrientation(LinearLayout.VERTICAL);
+                    outer.setPadding(80,40,80,40);
+                    final CardView cardView = new CardView(context);
                     cardView.setLayoutParams(matchParams);
                     LinearLayout inner = new LinearLayout(context);
                     inner.setLayoutParams(matchParams);
@@ -134,14 +144,34 @@ public class LeaveRequestActivity extends AppCompatActivity {
                                 v.setVisibility(View.GONE);
                         }
                     });
+                    final Button approve = new Button(context);
+                    final Button reject = new Button(context);
+                    approve.setText("Approve");
+                    reject.setText("Reject");
+                    approve.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(approve.getText().toString().equals("Approve"))
+                            {
+                                new ApproveReject().execute(refID, "Approved");
+                                reject.setVisibility(View.GONE);
+                                approve.setText("Approved");
+                            }
+                        }
+                    });
+                    reject.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            new ApproveReject().execute(refID, "Rejected");
+                            cardView.setVisibility(View.GONE);
+                        }
+                    });
+                    inner.addView(approve);
+                    inner.addView(reject);
                     cardView.addView(inner);
-                    LinearLayout outer = new LinearLayout(context);
-                    outer.setLayoutParams(matchParams);
-                    outer.setOrientation(LinearLayout.VERTICAL);
                     outer.addView(cardView);
-                    outer.setPadding(80,40,80,40);
-                    LinearLayout data = findViewById(R.id.data);
                     data.addView(outer);
+                    finalData = data;
                 }
             }
             else
@@ -283,6 +313,48 @@ public class LeaveRequestActivity extends AppCompatActivity {
                 reasonLabel.setVisibility(View.GONE);
                 data.addView(reasonLabel);
             }
+            progressDialog.dismiss();
+        }
+    }
+    private class ApproveReject extends AsyncTask<String,Void,Void> {
+        String webPage="";
+        String baseUrl = "http://srmvdpauditorium.in/spi/";
+        ProgressDialog progressDialog;
+        Context context = LeaveRequestActivity.this;
+        @Override
+        protected void onPreExecute(){
+            progressDialog = ProgressDialog.show(LeaveRequestActivity.this, "Please Wait!","Processing!");
+            super.onPreExecute();
+        }
+        @Override
+        protected Void doInBackground(String... strings){
+            URL url;
+            HttpURLConnection urlConnection = null;
+            try
+            {
+                url = new URL(handleSpaces(baseUrl+"adminapproval.php?RefID="+strings[0]+"&status="+strings[1]));
+                urlConnection = (HttpURLConnection) url.openConnection();
+                BufferedReader br=new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                String data;
+                while ((data=br.readLine()) != null)
+                    webPage=webPage+data;
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                if (urlConnection != null)
+                    urlConnection.disconnect();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (!webPage.equals("success"))
+                Toast.makeText(context, "Some Error Occurred", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         }
     }
