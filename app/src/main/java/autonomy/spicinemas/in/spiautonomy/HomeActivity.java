@@ -39,6 +39,13 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(new Intent(HomeActivity.this, UpdateScheduleActivity.class));
                 }
             });
+            TextView viewLeaveRequests = findViewById(R.id.viewleavereq);
+            viewLeaveRequests.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(HomeActivity.this, LeaveRequestActivity.class));
+                }
+            });
         }
         else
         {

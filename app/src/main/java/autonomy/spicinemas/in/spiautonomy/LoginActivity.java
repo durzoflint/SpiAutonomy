@@ -20,7 +20,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
-    String baseUrl = "http://srmvdpauditorium.in/spi/";
     private SharedPreferences.Editor loginPrefsEditor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private class Login extends AsyncTask<String,Void,Void> {
         String webPage="";
+        String baseUrl = "http://srmvdpauditorium.in/spi/";
         ProgressDialog progressDialog;
         @Override
         protected void onPreExecute(){
